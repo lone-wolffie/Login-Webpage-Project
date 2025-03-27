@@ -113,6 +113,14 @@ function logoutUser() {
     window.location.href = "index.html"; // Redirect to login
 }
 
+window.onload = function() {
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+}
+
 
 
 
