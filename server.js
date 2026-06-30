@@ -1,16 +1,23 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
-const express = require("express");
-const fs = require("fs");
-const cors = require("cors");
-const bodyParser = require("body-parser");
+import express from "express";
+import fs from "fs";
+import cors from "cors";
+import bodyParser from "body-parser";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "login-webpage/frontend")));
 
 // File to store users
 const USERS_FILE = "users.json";
@@ -36,6 +43,9 @@ function saveUsers(users) {
     }
 }
 
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "login-webpage/frontend", "index.html"));
+});
 
 //Registering a new user
 app.post("/register", (req, res) => {
@@ -71,4 +81,4 @@ app.post("/login", (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => console.log("Server running on port 5500"));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

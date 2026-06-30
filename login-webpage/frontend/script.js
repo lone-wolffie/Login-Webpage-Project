@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5500";
+const API_URL = "http://localhost:3000";
 
 document.addEventListener("DOMContentLoaded", function () {
     const loginBtn = document.getElementById("login-btn");
@@ -29,7 +29,7 @@ async function registerUser() {
 
     try {
         console.log("Sending registration request to backend...");
-        const response = await fetch("http://localhost:5500/register", {
+        const response = await fetch("http://localhost:3000/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, username, password })
@@ -68,7 +68,7 @@ async function loginUser() {
     }
 
     try {
-        const response = await fetch("http://localhost:5500/login", {
+        const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
