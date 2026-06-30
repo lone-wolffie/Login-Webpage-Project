@@ -19,8 +19,6 @@ async function registerUser() {
     const password = document.getElementById("reg-password").value;
     const messageElement = document.getElementById("register-message");
 
-    console.log("Register button clicked");
-
     if (!email || !username || !password) {
         messageElement.innerText = "Please fill in all the fields!";
         messageElement.style.color = "red";
@@ -28,7 +26,6 @@ async function registerUser() {
     }
 
     try {
-        console.log("Sending registration request to backend...");
         const response = await fetch("http://localhost:3000/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -37,15 +34,14 @@ async function registerUser() {
 
     const data = await response.json();
     console.log("Server response:", data);
+
     messageElement.innerText = data.message;
     messageElement.style.color = data.success ? "green" : "red";
 
     if (data.success) {
         alert("Registration successful! You can now login.");
-        setTimeout(() => {
-            console.log("Redirecting to login page...");
-            window.location.href = "index.html";
-        }, 3000);
+        window.location.href = "index.html";
+        
     }    
 
     } catch (error) {
@@ -81,7 +77,6 @@ async function loginUser() {
     if (data.success) {
         alert("Login successful!");
         localStorage.setItem("loggedInUser", username);
-        //setTimeout(() => {
         window.location.href = "dashboard.html"; // Redirect to dashboard
         
     }
